@@ -1,0 +1,21 @@
+﻿#Exemplo 3.9 - Instalação de Facilidades
+
+parameters:
+Bairros:= set(1,2,3,4,5);
+Locais:= set(1,2,3,4,5,6);
+Custo[Locais]:=(20,76,16,23,23,18);
+A[Bairros,Locais]:=((1,1,0,0,1,0),
+                    (1,0,1,0,0,0),
+                    (0,1,0,1,0,0),
+                    (0,0,1,0,0,1),
+                    (0,1,1,0,0,1)
+);
+
+variables:
+x[Locais]: binary;
+
+objectives:
+fo:sum{i in Locais: Custo[i]*x[i]} ->min;
+
+constraints:
+R1{j in Bairros: sum{i in Locais: A[j,i]*x[i]} >= 1;}

@@ -1,0 +1,24 @@
+﻿#Exemplo 3.8 - Designacao Generalizada
+
+parameters:
+Agentes:= set(1,2,3);
+Tarefas:= set(1,2,3,4,5,6,7,8);
+Custo[Agentes,Tarefas]:=((15,61, 3,94,86,68,69,51),
+                         (21,28,76,48,54,85,39,72),
+                         (21,21,46,43,21, 3,84,44)
+);
+Quantidade[Agentes,Tarefas]:=((31,69,14,87,51,65,35,54),
+                              (23,20,71,86,91,57,30,74),
+                              (20,55,39,60,83,67,35,32)
+);
+Capacidade[Agentes]:=(100,100,100);
+
+variables:
+x[Agentes,Tarefas]: binary;
+
+objectives:
+fo:sum{i in Agentes: sum{j in Tarefas: Custo[i,j]*x[i,j]}} ->min;
+
+constraints:
+R1{j in Tarefas: sum{i in Agentes: x[i,j]} = 1;}
+R2{i in Agentes: sum{j in Tarefas: Quantidade[i,j]*x[i,j]} <= Capacidade[i];}

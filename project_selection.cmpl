@@ -1,0 +1,23 @@
+﻿#Exemplo 9.1.1 - Selecao de Projetos
+
+parameters:
+Projetos:= set(1,2,3,4,5);
+Anos:= set(1,2,3);
+Desembolsos[Projetos,Anos]:=((5,1, 8),
+                             (4,7,10),
+                             (3,9, 2),
+                             (7,4, 1),
+                             (8,6,10)
+);
+Fundos[Anos]:=(25,25,25);
+Retornos[Projetos]:=(20,40,20,15,30);
+
+variables:
+x[Projetos]: binary;
+
+objectives:
+fo:sum{j in Projetos: Retornos[j]*x[j]} ->max;
+
+constraints:
+Aloc{ i in Anos: sum{j in Projetos: Desembolsos[j,i]*x[j]} <= Fundos[i];}
+

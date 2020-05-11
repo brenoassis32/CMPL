@@ -1,0 +1,16 @@
+﻿#Exemplo 3.7 - Selecao de Investimentos
+
+parameters:
+Projeto:= set(1,2,3,4,5,6,7,8); 
+Retorno[Projeto]:=(41,33,14,25,32,32,9,19);
+Custo[Projeto]:=(47,40,17,27,34,23,5,44);
+Capital:=100;  
+
+variables:
+x[Projeto]: binary;
+
+objectives:
+fo: sum{j in Projeto: Retorno[j]*x[j]} ->max;
+
+constraints:
+R1{:sum{j in Projeto: Custo[j]*x[j]}<=Capital;} 

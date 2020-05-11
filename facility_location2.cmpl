@@ -1,0 +1,26 @@
+﻿#Exemplo 9.1.2 - Instalação de Telefones de Seguranca
+
+parameters:
+Ruas:= set(1,2,3,4,5,6,7,8,9,10,11);
+Locais:= set(1,2,3,4,5,6,7,8);
+Atendimento[Ruas,Locais]:=((1,1,0,0,0,0,0,0),
+                           (0,1,1,0,0,0,0,0),
+                           (0,0,0,1,1,0,0,0),
+                           (0,0,0,0,0,0,1,1),
+                           (0,0,0,0,0,1,1,0),
+                           (0,1,0,0,0,1,0,0),
+                           (1,0,0,0,0,1,0,0),
+                           (0,0,0,1,0,0,1,0),
+                           (0,1,0,1,0,0,0,0),
+                           (0,0,0,0,1,0,0,1),
+                           (0,0,1,0,1,0,0,0),
+);
+
+variables:
+x[Locais]: binary;
+
+objectives:
+fo: sum{i in Locais: x[i]}->min;
+
+constraints:
+R1{i in Ruas: sum{j in Locais: Atendimento[i,j]*x[j]}>=1; }
