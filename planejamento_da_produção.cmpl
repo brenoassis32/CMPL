@@ -1,0 +1,25 @@
+﻿parameters:
+Motor:= set(1,2,3);
+Tarefas:= set(1,2);
+Demandas[Motor]:=(3000,2500,500);
+Horas[Tarefas,Motor]:=((1.1,1.9,0.7),
+                       (2.5,0.8,4.0)
+);
+Horas_Totais[Tarefas]:=(6000,10000);
+Produzido[Motor]:=(50,90,120);
+Terceirizado[Motor]:=(65,92,140);
+
+variables:
+t[Motor]: binary;
+w[Motor]: binary;
+x[Motor]: integer;
+y[Motor]: integer;
+
+objectives:
+fo: sum{j in Motor: Terceirizado[j]*w[j] + Produzido[j]*t[j]} ->min;
+
+constraints:
+R1{i in Tarefas: sum{j in Motor: Horas[i,j]*x[j]}<=Horas_Totais[i];} 
+R2{j in Motor: y[j] + x[j]>=Demandas[j];} 
+R3{j in Motor: x[j]<=Demandas[j]*t[j];} 
+R4{j in Motor: y[j]<=Demandas[j]*w[j];}

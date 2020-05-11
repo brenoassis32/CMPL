@@ -1,0 +1,25 @@
+﻿parameters:
+Nafta:= set(1,2);
+Gasolina:= set(1,2);
+Lucro[Nafta,Gasolina]:=((4,6),
+                        (-3,-1));
+Estoque[Nafta]:=(40000,60000);
+Demandas1[Gasolina]:=(100000,20000);
+Demandas2[Gasolina]:=(50000,5000);
+Octa[Nafta]:=(87,98);
+OctaL[Gasolina]:=(88,93);
+PV[Nafta]:=(25,15);
+PVL[Gasolina]:=(22,18);
+
+variables:
+x[Nafta,Gasolina]: integer[0..];
+
+objectives:
+fo:sum{i in Nafta, j in Gasolina: Lucro[i,j]*x[i,j]} ->max;
+
+constraints:
+R1{i in Nafta: sum{j in Gasolina: x[i,j]} <= Estoque[i];}
+R2{j in Gasolina: sum{i in Nafta: x[i,j]} >= Demandas2[j];}
+R3{j in Gasolina: sum{i in Nafta: x[i,j]} <= Demandas1[j];}
+R4{j in Gasolina: sum{i in Nafta: Octa[i]*x[i,j]} >= sum{i in Nafta: OctaL[j]*x[i,j]};}
+R5{j in Gasolina: sum{i in Nafta: PV[i]*x[i,j]} >= sum{i in Nafta: PVL[j]*x[i,j]};}

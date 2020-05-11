@@ -1,0 +1,16 @@
+﻿parameters:
+Cliente:= set(1,2,3,4,5,6,7);
+Lucro[Cliente]:=(200,40,90,80,105,100,140);
+Limitacao[Cliente]:=(10,8,6,9,15,10,12);
+Demandas[Cliente]:=(12,31,20,25,50,40,60);
+Capacidade:=1500;
+
+variables:
+x[Cliente]: integer;
+
+objectives:
+fo:sum{j in Cliente: Lucro[j]*x[j]} ->max;
+
+constraints:
+R1{: sum{j in Cliente: Limitacao[j]*x[j]} <= Capacidade;}
+R2{j in Cliente: x[j] <= Demandas[j];}

@@ -1,0 +1,22 @@
+﻿parameters:
+Produto:= set(1,2,3);
+Tarefa:= set(1,2);
+Receita[Produto]:=(30,20,40);
+Custo[Produto]:=(100,80,150);
+Limitacao[Tarefa,Produto]:=((5,3,8),
+                            (4,3,5));
+Demandas[Produto]:=(100,150,200);
+M[Produto]:=(600,833.33,375);
+Capacidade[Tarefa]:=(3000,2500);
+
+variables:
+y[Produto]: binary;
+x[Produto]: integer;
+
+objectives:
+fo:sum{j in Produto: Receita[j]*x[j] - Custo[j]*y[j]} ->max;
+
+constraints:
+R1{i in Tarefa: sum{j in Produto: Limitacao[i,j]*x[j]} <= Capacidade[i];}
+R2{j in Produto: x[j] >= Demandas[j];}
+R3{j in Produto: x[j] <= M[j]*y[j];}

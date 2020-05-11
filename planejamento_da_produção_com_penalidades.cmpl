@@ -1,0 +1,21 @@
+﻿parameters:
+Gasolina:= set(1,2,3);
+Tanque:= set(1,2,3,4,5);
+Custo[Gasolina]:=(10,8,6);
+Demandas[Gasolina]:=(2900,4000,4900);
+Capacidade[Tanque]:=(2700,2800,1100,1800,3400);
+Falta:= 500;
+
+variables:
+t[Gasolina,Tanque]: binary;
+x[Gasolina,Tanque]: real[0..];
+y[Gasolina]: real[0..];
+
+objectives:
+fo:sum{i in Gasolina: Custo[i]*y[i]} ->min;
+
+constraints:
+R1{i in Gasolina: y[i] <= Falta;}
+R2{i in Gasolina: sum{j in Tanque: x[i,j]} +y[i] >= Demandas[i];}
+R3{j in Tanque: sum{i in Gasolina: t[i,j]} = 1;}
+R4{j in Tanque, i in Gasolina: x[i,j] <= Capacidade[j]*t[i,j];}
