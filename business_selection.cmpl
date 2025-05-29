@@ -1,19 +1,19 @@
 ﻿#Exemplo 9.1.3 - Escolha de uma empresa de telefonia
 
-parameters:
+par:
 Empresas:= set(1,2,3);
 CV[Empresas]:=(0.25,0.21,0.22);
 CF[Empresas]:=(16,25,18);
 M[Empresas]:=(200,200,200);
 C:=(200);
 
-variables:
+var:
 x[Empresas]: integer;
 y[Empresas]: binary;
 
-objectives:
+obj:
 fo: sum{i in Empresas: CV[i]*x[i]+CF[i]*y[i]}->min;
 
-constraints:
+con:
 R1{:sum{i in Empresas: x[i]}=C; }
 R2{i in Empresas: x[i]<=M[i]*y[i]; } 
